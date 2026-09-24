@@ -1,0 +1,20 @@
+# Build outputs
+*.o
+*.out
+server
+client
+load_balancer
+
+# Build directories
+build/
+bin/
+
+# IDE/editor
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+
+# Logs
+*.log
