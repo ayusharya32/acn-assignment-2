@@ -1,24 +1,28 @@
 CXX = g++
-CXXFLAGS = -std=c++17 -pthread
+CXXFLAGS = -std=c++17 -pthread -Iinclude
 
-SERVER = server
-CLIENT = client
+SERVER = build/server
+CLIENT = build/client
 
-COMMON = config.cpp util.cpp request.cpp
+COMMON = src/config.cpp src/util.cpp src/request.cpp src/framing.cpp
 
 all: $(SERVER) $(CLIENT)
 
-$(SERVER): server.cpp $(COMMON)
-	$(CXX) $(CXXFLAGS) server.cpp $(COMMON) -o $(SERVER)
+$(SERVER): src/server.cpp $(COMMON)
+	$(CXX) $(CXXFLAGS) src/server.cpp $(COMMON) -o $(SERVER)
 
-$(CLIENT): client.cpp $(COMMON)
-	$(CXX) $(CXXFLAGS) client.cpp $(COMMON) -o $(CLIENT)
+$(CLIENT): src/client.cpp $(COMMON)
+	$(CXX) $(CXXFLAGS) src/client.cpp $(COMMON) -o $(CLIENT)
 
 clean:
 	rm -f $(SERVER) $(CLIENT)
 
-test_parser: test_parser.cpp request.cpp util.cpp
-	$(CXX) $(CXXFLAGS) test_parser.cpp request.cpp util.cpp -o test_parser
+test_parser: tests/test_parser.cpp src/request.cpp src/util.cpp
+	$(CXX) $(CXXFLAGS) tests/test_parser.cpp src/request.cpp src/util.cpp -o build/test_parser
 
-test: test_parser
-	./test_parser
+test_framing: tests/test_framing.cpp src/framing.cpp
+	$(CXX) $(CXXFLAGS) tests/test_framing.cpp src/framing.cpp -o build/test_framing
+
+test: test_parser test_framing
+	./build/test_parser
+	./build/test_framing

@@ -30,6 +30,7 @@ void setupClientSocketAndSendRequest(const Config &config, const std::string &re
     connect(clientSocket, (struct sockaddr*)&serverAddress,
             sizeof(serverAddress));
 
+    
     send(clientSocket, requestString.c_str(), requestString.size(), 0);
 
     close(clientSocket);

@@ -1,13 +1,12 @@
-#include <cstring>
 #include <iostream>
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <arpa/inet.h>
 #include <unistd.h>
-#include <sstream>
 #include "config.hpp"
 #include "util.hpp"
 #include "request.hpp"
+#include "framing.hpp"
 
 using namespace std;
 
@@ -50,14 +49,22 @@ int main() {
 void handleRequests(int serverSocket) {
      while (true) {
         int clientSocket = accept(serverSocket, nullptr, nullptr);
-        char buffer[1024] = {0};
+        HeaderResult headerResult = readRequestHeader(clientSocket);
 
-        recv(clientSocket, buffer, sizeof(buffer), 0);
+        if (!headerResult.success) {
+            close(clientSocket);
+            continue;
+        }
+        
+        ParseResult requestParseResult = parseRequest(headerResult.header);
 
-        std::string requestString = buffer;
-        ParseResult result = parseRequest(requestString);
-        auto& request = result.request;
+        if (!requestParseResult.success) {
+            cout << "ERR " << requestParseResult.errorMessage << endl;
+            close(clientSocket);
+            continue;
+        }
 
+        auto& request = requestParseResult.request;
         cout << "Type:"<< request.type << endl << "FileName:" << request.fileName << endl 
         << "Size:" << request.bytes << endl << endl;
 
