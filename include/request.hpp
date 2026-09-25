@@ -8,6 +8,17 @@ struct Request {
     size_t bytes = 0;
 };
 
+struct AdmittedRequest {
+    int clientSocket; 
+    Request request;
+    size_t bytesTransferred;
+    size_t deficit;
+
+    timespec arrivalTime{};
+    timespec startTime{};
+    timespec finishlTime{};
+};
+
 struct ParseResult {
     Request request;
     bool success = false;
