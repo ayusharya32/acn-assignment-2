@@ -7,6 +7,7 @@
 #include "util.hpp"
 #include "request.hpp"
 #include "framing.hpp"
+#include "response.hpp"
 
 using namespace std;
 
@@ -52,6 +53,7 @@ void handleRequests(int serverSocket) {
         HeaderResult headerResult = readRequestHeader(clientSocket);
 
         if (!headerResult.success) {
+            sendErrorResponse(clientSocket, headerResult.errorMessage);
             close(clientSocket);
             continue;
         }
@@ -59,10 +61,12 @@ void handleRequests(int serverSocket) {
         ParseResult requestParseResult = parseRequest(headerResult.header);
 
         if (!requestParseResult.success) {
-            cout << "ERR " << requestParseResult.errorMessage << endl;
+            sendErrorResponse(clientSocket, requestParseResult.errorMessage);
             close(clientSocket);
             continue;
         }
+
+        sendOkResponse(clientSocket, 0);
 
         auto& request = requestParseResult.request;
         cout << "Type:"<< request.type << endl << "FileName:" << request.fileName << endl 

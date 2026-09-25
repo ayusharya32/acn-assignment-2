@@ -62,6 +62,12 @@ ParseResult parseRequest(const std::string &requestString) {
         }
 
         request.bytes = std::stoull(byteCountString);
+
+        std::string extra;
+        if (requestStream >> extra) {
+            result.errorMessage = "Malformed request";
+            return result;
+        }
     }
 
     if (request.type == "HEALTH") {

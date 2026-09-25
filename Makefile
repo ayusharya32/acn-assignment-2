@@ -4,7 +4,7 @@ CXXFLAGS = -std=c++17 -pthread -Iinclude
 SERVER = build/server
 CLIENT = build/client
 
-COMMON = src/config.cpp src/util.cpp src/request.cpp src/framing.cpp
+COMMON = src/config.cpp src/util.cpp src/request.cpp src/framing.cpp src/response.cpp
 
 all: $(SERVER) $(CLIENT)
 
@@ -23,6 +23,10 @@ test_parser: tests/test_parser.cpp src/request.cpp src/util.cpp
 test_framing: tests/test_framing.cpp src/framing.cpp
 	$(CXX) $(CXXFLAGS) tests/test_framing.cpp src/framing.cpp -o build/test_framing
 
-test: test_parser test_framing
+test_response: tests/test_response.cpp src/response.cpp
+	$(CXX) $(CXXFLAGS) tests/test_response.cpp src/response.cpp -o build/test_response
+
+test: test_parser test_framing test_response
 	./build/test_parser
 	./build/test_framing
+	./build/test_response
