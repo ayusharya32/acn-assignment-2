@@ -22,8 +22,8 @@ bool sendResponse(int clientSocket, const std::string &responseString){
     return true;
 }
 
-bool sendOkResponse(int clientSocket, size_t fileSize){
-    std::string responseString = std::string("OK ") + std::to_string(fileSize) + "\n";
+bool sendOkResponse(int clientSocket, size_t value){
+    std::string responseString = std::string("OK ") + std::to_string(value) + "\n";
     return sendResponse(clientSocket, responseString);
 }
 

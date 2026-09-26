@@ -11,12 +11,15 @@ struct Request {
 struct AdmittedRequest {
     int clientSocket; 
     Request request;
-    size_t bytesTransferred;
-    size_t deficit;
+    std::string extra;
+
+    size_t totalBytesToTransfer = 0;
+    size_t bytesTransferred = 0;
+    size_t deficit = 0;
 
     timespec arrivalTime{};
     timespec startTime{};
-    timespec finishlTime{};
+    timespec finishTime{};
 };
 
 struct ParseResult {

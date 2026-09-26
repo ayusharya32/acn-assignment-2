@@ -5,12 +5,16 @@
 #include <unistd.h>
 #include <pthread.h>
 #include <queue>
+#include <vector>
+#include <fstream>
+#include <algorithm>
 
 #include "config.hpp"
 #include "util.hpp"
 #include "request.hpp"
 #include "framing.hpp"
 #include "response.hpp"
+#include "scheduler.hpp"
 #include "cli.hpp"
 
 using namespace std;
@@ -22,18 +26,23 @@ queue<int> connectionQueue;
 pthread_mutex_t connectionQueueMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t connectionQueueSignal = PTHREAD_COND_INITIALIZER;
 
-/**
- * SchedulerQueue
- */
-queue<AdmittedRequest> schedulerQueue;
-pthread_mutex_t schedulerQueueMutex = PTHREAD_MUTEX_INITIALIZER;
-pthread_cond_t schedulerQueueSignal = PTHREAD_COND_INITIALIZER;
-
 constexpr int HEADER_TIMEOUT_SECONDS = 5;
 
-void handleRequests(int serverSocket);
+void handleRequests(int serverSocket, const Config &config, ServerOptions &options);
 void* parserThreadFunc(void* arg);
 void* workerThreadFunc(void* arg);
+
+void serveHealthRequestImmediately(int clientSocket);
+void serveRequest(AdmittedRequest &request, const ServerOptions& options);
+bool serveGetRequest(AdmittedRequest &request, const ServerOptions& options);
+bool servePutRequest(AdmittedRequest &request, const ServerOptions& options);
+bool sendAllBytes(int clientSocket, const char *data, size_t bytes);
+
+bool getAdmittedRequestTotalBytesToTransfer(const Request& request, 
+    const ServerOptions& options, size_t &totalBytesToTransfer);
+
+void enqueueConnection(int clientSocket);
+void enqueueAdmittedRequest(const AdmittedRequest &admittedRequest);
 
 int main(int argc, char* argv[]) {
     ServerOptions options{};
@@ -105,18 +114,31 @@ int main(int argc, char* argv[]) {
          << config.server.port
          << endl;
 
-    handleRequests(serverSocket);
+    handleRequests(serverSocket, config, options);
     close(serverSocket);
 
     return 0;
 }
 
-void handleRequests(int serverSocket) {
+void handleRequests(int serverSocket, const Config &config, ServerOptions &options) {
     pthread_t parserThread;
-    int threadCreationResult = pthread_create(&parserThread, nullptr, parserThreadFunc, nullptr);
+    int threadCreationResult = pthread_create(&parserThread, nullptr, 
+        parserThreadFunc, &options);
+
     if(threadCreationResult != 0) {
         cerr << "Failed to create parser thread" << endl;
         return;
+    }
+
+    vector<pthread_t> workerThreads(config.server.serverThreads);
+    for(int i=0; i<config.server.serverThreads; i++) {
+        threadCreationResult = pthread_create(&workerThreads[i], nullptr, 
+            workerThreadFunc, &options);
+
+        if (threadCreationResult != 0) {
+            cerr << "Failed to create worker thread " << i << endl;
+            return;
+        }
     }
 
      while (true) {
@@ -133,20 +155,7 @@ void handleRequests(int serverSocket) {
             continue;
         }
 
-        /**
-         * Take mutex lock on connectionQueue and push clientSocket in it
-         */
-        pthread_mutex_lock(&connectionQueueMutex);
-        connectionQueue.push(clientSocket);
-
-        cout << "[QUEUE] fd=" << clientSocket
-            << " queue_size=" << connectionQueue.size()
-            << endl;
-
-        pthread_mutex_unlock(&connectionQueueMutex);
-
-        //Signaling parser thread to wake up
-        pthread_cond_signal(&connectionQueueSignal);
+        enqueueConnection(clientSocket);
      }
 
      // Not reachable currently because the server runs forever.
@@ -154,6 +163,8 @@ void handleRequests(int serverSocket) {
 }
 
 void* parserThreadFunc(void* arg) {
+    ServerOptions &options = *static_cast<ServerOptions*>(arg);
+
     while(true) {
         /**
          * Take mutex lock on connectionQueue and get clientSocket and first position
@@ -185,7 +196,10 @@ void* parserThreadFunc(void* arg) {
             close(clientSocket);
             continue;
         }
-        
+
+        /**
+         * Parse received header
+         */
         ParseResult requestParseResult = parseRequest(headerResult.header);
 
         if (!requestParseResult.success) {
@@ -198,17 +212,241 @@ void* parserThreadFunc(void* arg) {
             << " type=" << requestParseResult.request.type
             << endl;
 
-        sendOkResponse(clientSocket, 0);
-
+        /**
+         * Process requests after successful parsing
+         */
         auto& request = requestParseResult.request;
-        
+
+        if(request.type == REQUEST_HEALTH) {
+            serveHealthRequestImmediately(clientSocket);
+            continue;
+        }
+
+        size_t totalBytesToTransfer = 0;
+        if(!getAdmittedRequestTotalBytesToTransfer(request, 
+            options, totalBytesToTransfer)) {
+                sendErrorResponse(
+                    clientSocket,
+                    request.type == "GET"
+                        ? "file does not exist"
+                        : "invalid request size"
+                );
+
+            close(clientSocket);
+            continue;
+        }
+
+        AdmittedRequest admittedRequest;
+        admittedRequest.clientSocket = clientSocket;
+        admittedRequest.request = requestParseResult.request;
+        admittedRequest.totalBytesToTransfer = totalBytesToTransfer;
+        admittedRequest.extra = headerResult.extra;
+
+        clock_gettime(CLOCK_MONOTONIC, &admittedRequest.arrivalTime);
+        enqueueAdmittedRequest(admittedRequest);
     }
 
     return nullptr;
 }
 
-// void* workerThreadFunc(void* arg) {
+void* workerThreadFunc(void* arg) {
+    ServerOptions &options = *static_cast<ServerOptions*>(arg);
 
-// }
+    while(true) {
+        pthread_mutex_lock(&schedulerQueueMutex);
+
+        while(schedulerQueue.empty()) {
+            pthread_cond_wait(&schedulerQueueSignal, &schedulerQueueMutex);
+        }
+
+        AdmittedRequest request = selectNextRequestToProcess(options.scheduler);
+
+        pthread_mutex_unlock(&schedulerQueueMutex);
+
+        serveRequest(request, options);
+    }
+
+    return nullptr;
+}
+
+void serveHealthRequestImmediately(int clientSocket) {
+    pthread_mutex_lock(&schedulerQueueMutex);
+
+    size_t queueDepth = schedulerQueue.size();
+
+    pthread_mutex_unlock(&schedulerQueueMutex);
+    
+    sendOkResponse(clientSocket, queueDepth);
+    close(clientSocket);
+}
+
+void serveRequest(AdmittedRequest &request, const ServerOptions& options) {
+    if (request.request.type == REQUEST_GET) {
+        serveGetRequest(request, options);
+
+    } else if (request.request.type == REQUEST_PUT) {
+        servePutRequest(request, options);
+    }
+}
+
+bool serveGetRequest(AdmittedRequest& request, const ServerOptions& options) {
+    bool sendSizeSuccess = sendOkResponse(request.clientSocket, request.totalBytesToTransfer);
+    if(!sendSizeSuccess) {
+        close(request.clientSocket);
+        return false;
+    }
+
+    std::string filePath = options.fileDirectory + "/" + request.request.fileName;
+    std::ifstream file(filePath, std::ios::binary);
+
+    if(!file) {
+        sendErrorResponse(request.clientSocket, "Unable to open file");
+        close(request.clientSocket);
+        return false;
+    }
+
+    char buffer[8192];
+    while(file && request.bytesTransferred < request.totalBytesToTransfer) {
+        size_t remainingBytesToTranfer = request.totalBytesToTransfer - request.bytesTransferred;
+        size_t bytesToRead = std::min(sizeof(buffer), remainingBytesToTranfer);
+
+        file.read(buffer, bytesToRead);
+        std::streamsize bytesRead = file.gcount();
+
+        if(bytesRead <= 0) {
+            sendErrorResponse(request.clientSocket, "Failed to read file");
+            close(request.clientSocket);
+            return false;
+        }
+
+        if(!sendAllBytes(request.clientSocket, buffer, static_cast<size_t>(bytesRead))) {
+            close(request.clientSocket);
+            return false;
+        }
+
+        request.bytesTransferred += static_cast<size_t>(bytesRead);
+    }
+
+    close(request.clientSocket);
+    return true;
+}
+
+bool servePutRequest(AdmittedRequest &request, const ServerOptions &options) {
+    bool sendOkSuccess = sendOkResponse(request.clientSocket, 0);
+    if(!sendOkSuccess) {
+        close(request.clientSocket);
+        return false;
+    }
+    
+    std::string filePath = options.fileDirectory + "/" + request.request.fileName;
+    std::ofstream file(filePath, std::ios::binary | std::ios::trunc);
+
+    if(!file) {
+        sendErrorResponse(request.clientSocket, "Unable to open file");
+        close(request.clientSocket);
+        return false;
+    }
+
+    if (!request.extra.empty()) {
+        size_t extraBytesToWrite = std::min(request.extra.size(),request.totalBytesToTransfer);
+        file.write(request.extra.data(), extraBytesToWrite);
+
+        if (!file) {
+            sendErrorResponse(request.clientSocket,"Failed to write file");
+            close(request.clientSocket);
+            return false;
+        }
+        request.bytesTransferred += extraBytesToWrite;
+    }
+
+
+    char buffer[8192];
+    while(request.bytesTransferred < request.totalBytesToTransfer) {
+        size_t remainingBytesToTranfer = request.totalBytesToTransfer - request.bytesTransferred;
+        size_t bytesToReceive = std::min(sizeof(buffer), remainingBytesToTranfer);
+
+        ssize_t bytesActuallyReceived = recv(request.clientSocket, buffer, bytesToReceive, 0);
+        if(bytesActuallyReceived <= 0) {
+            sendErrorResponse(request.clientSocket, "Unable to receive file");
+            close(request.clientSocket);
+            return false;
+        }
+
+        file.write(buffer, bytesActuallyReceived);
+        request.bytesTransferred += static_cast<size_t>(bytesActuallyReceived);
+    }
+
+    file.close();
+
+    if(!sendOkResponse(request.clientSocket, 0)) {
+        close(request.clientSocket);
+        return false;
+    }
+
+    close(request.clientSocket);
+    return true;
+}
+
+bool sendAllBytes(int clientSocket, const char *data, size_t bytes) {
+    size_t totalSent = 0;
+
+    while(totalSent < bytes) {
+        ssize_t bytesActuallySent = send(clientSocket, data + totalSent, bytes - totalSent, 0);
+
+        if(bytesActuallySent <= 0) {
+            return false;
+        }
+
+        totalSent += static_cast<size_t>(bytesActuallySent);
+    }
+
+    return true;
+}
+
+bool getAdmittedRequestTotalBytesToTransfer(const Request& request, 
+    const ServerOptions& options, size_t &totalBytesToTransfer) {
+
+    if(request.type == REQUEST_GET) {
+        std::string filePath = options.fileDirectory + "/" + request.fileName;
+        size_t fileSize = 0;
+
+        if(!getFileSize(filePath, fileSize)) {
+            return false;
+        }
+
+        totalBytesToTransfer = fileSize;
+        return true;
+    }
+
+    if(request.type == REQUEST_PUT) {
+        totalBytesToTransfer = request.bytes;
+        return true;
+    }
+
+    return false;
+}
+
+void enqueueConnection(int clientSocket) {
+    pthread_mutex_lock(&connectionQueueMutex);
+    connectionQueue.push(clientSocket);
+
+    cout << "[QUEUE] fd=" << clientSocket
+        << " queue_size=" << connectionQueue.size()
+        << endl;
+
+    pthread_mutex_unlock(&connectionQueueMutex);
+
+    //Signaling parser thread to wake up
+    pthread_cond_signal(&connectionQueueSignal);
+}
+
+void enqueueAdmittedRequest(const AdmittedRequest& admittedRequest){
+    pthread_mutex_lock(&schedulerQueueMutex);
+
+    schedulerQueue.push_back(admittedRequest);
+
+    pthread_mutex_unlock(&schedulerQueueMutex);
+    pthread_cond_signal(&schedulerQueueSignal);
+}
 
 

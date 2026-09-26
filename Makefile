@@ -9,7 +9,8 @@ COMMON = src/config.cpp \
          src/request.cpp \
          src/framing.cpp \
          src/response.cpp \
-         src/cli.cpp
+         src/cli.cpp \
+		 src/scheduler.cpp
 
 all: $(SERVER) $(CLIENT)
 
@@ -34,7 +35,8 @@ test_response: tests/test_response.cpp src/response.cpp
 test_cli: tests/test_cli.cpp src/cli.cpp src/util.cpp
 	$(CXX) $(CXXFLAGS) tests/test_cli.cpp src/cli.cpp src/util.cpp -o build/test_cli
 
-test: test_parser test_framing test_response
+test: test_parser test_framing test_response test_cli
 	./build/test_parser
 	./build/test_framing
 	./build/test_response
+	./build/test_cli

@@ -28,7 +28,7 @@ ParseResult parseRequest(const std::string &requestString) {
         return result;
     }
 
-    if (request.type == "GET" || request.type == "PUT") {
+    if (request.type == REQUEST_GET || request.type == REQUEST_PUT) {
         if (request.fileName.empty()) {
             result.errorMessage = "Missing filename";
             return result;
@@ -40,14 +40,14 @@ ParseResult parseRequest(const std::string &requestString) {
         }
     }
 
-    if (request.type == "GET") {
+    if (request.type == REQUEST_GET) {
         if (!byteCountString.empty()) {
             result.errorMessage = "Malformed request";
             return result;
         }
     }
 
-    if (request.type == "PUT") {
+    if (request.type == REQUEST_PUT) {
         if (byteCountString.empty()) {
             result.errorMessage = "Missing byte count";
             return result;
@@ -70,14 +70,14 @@ ParseResult parseRequest(const std::string &requestString) {
         }
     }
 
-    if (request.type == "HEALTH") {
+    if (request.type == REQUEST_HEALTH) {
         if (!request.fileName.empty() || !byteCountString.empty()) {
             result.errorMessage = "Malformed request";
             return result;
         }
     }
 
-    if (request.type == "GET" || request.type == "HEALTH") {
+    if (request.type == REQUEST_GET || request.type == REQUEST_HEALTH) {
         std::string extra;
 
         if (requestStream >> extra) {
@@ -91,7 +91,7 @@ ParseResult parseRequest(const std::string &requestString) {
 }
 
 bool validRequestType(const std::string &type) {
-    return type == "GET" || type == "PUT" || type == "HEALTH";
+    return type == REQUEST_GET || type == REQUEST_PUT || type == REQUEST_HEALTH;
 } 
 
 bool validFileName(const std::string &fileName) {

@@ -20,7 +20,7 @@ int main() {
     test("GET file.txt", true);
     test("PUT file.txt 100", true);
     test("PUT file.txt 0", true);
-    test("HEALTH", true);
+    test(REQUEST_HEALTH, true);
 
     // Empty / malformed
     test("", false);
@@ -31,8 +31,8 @@ int main() {
     test("HELLO", false);
 
     // Missing filename
-    test("GET", false);
-    test("PUT", false);
+    test(REQUEST_GET, false);
+    test(REQUEST_PUT, false);
 
     // Invalid filename
     test("GET /etc/passwd", false);

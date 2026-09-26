@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <sys/socket.h>
 #include <sys/time.h>
+#include <sys/stat.h>
 
 std::string toUpper(std::string_view originalString) {
     std::string result;
@@ -44,4 +45,15 @@ bool parsePositiveInt(const std::string &valueString, int &result) {
     catch (...) {
         return false;
     }
+}
+
+bool getFileSize(const std::string &filePath, size_t &fileSize) {
+    struct stat fileInfo{};
+
+    if(stat(filePath.c_str(), &fileInfo) != 0) {
+        return false;
+    }
+
+    fileSize = static_cast<size_t>(fileInfo.st_size);
+    return true;
 }

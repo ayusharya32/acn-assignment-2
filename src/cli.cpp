@@ -6,18 +6,6 @@
 
 using namespace std;
 
-constexpr const char* ARG_SCHED = "--sched";
-constexpr const char* ARG_QUANTUM = "--quantum";
-constexpr const char* ARG_FILE = "--file";
-constexpr const char* ARG_PACKETIZATION = "--p";
-constexpr const char* ARG_CONFIG = "--config";
-constexpr const char* ARG_METRICS_OUT = "--metrics-out";
-
-constexpr const char* SCHED_FCFS = "fcfs";
-constexpr const char* SCHED_SJF  = "sjf";
-constexpr const char* SCHED_ROUND_ROBIN = "rr";
-constexpr const char* SCHED_DRR  = "drr";
-
 bool nextIndexValid(int argc, int currentIndex);
 bool loadArgValuesInServerOptions(int argc, char* argv[], ServerOptions &options, 
     bool &schedulerProvided, bool &fileProvided, bool &quantumProvided);
