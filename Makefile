@@ -10,7 +10,8 @@ COMMON = src/config.cpp \
          src/framing.cpp \
          src/response.cpp \
          src/cli.cpp \
-		 src/scheduler.cpp
+		 src/scheduler.cpp \
+		 src/request_handler.cpp
 
 all: $(SERVER) $(CLIENT)
 

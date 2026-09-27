@@ -31,3 +31,19 @@ bool sendErrorResponse(int clientSocket, const std::string &errorMessage){
     std::string responseString = std::string("ERR ") + errorMessage+ "\n";
     return sendResponse(clientSocket, responseString);
 }
+
+bool sendAllBytes(int clientSocket, const char *data, size_t bytes) {
+    size_t totalSent = 0;
+
+    while(totalSent < bytes) {
+        ssize_t bytesActuallySent = send(clientSocket, data + totalSent, bytes - totalSent, 0);
+
+        if(bytesActuallySent <= 0) {
+            return false;
+        }
+
+        totalSent += static_cast<size_t>(bytesActuallySent);
+    }
+
+    return true;
+}
