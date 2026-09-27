@@ -5,6 +5,7 @@
 #include <sys/socket.h>
 #include <sys/time.h>
 #include <sys/stat.h>
+#include <cstdint>
 
 std::string toUpper(std::string_view originalString) {
     std::string result;
@@ -56,4 +57,9 @@ bool getFileSize(const std::string &filePath, size_t &fileSize) {
 
     fileSize = static_cast<size_t>(fileInfo.st_size);
     return true;
+}
+
+uint64_t timespecToNanoseconds(const timespec& time) {
+    return static_cast<uint64_t>(time.tv_sec) * 1000000000ULL
+         + static_cast<uint64_t>(time.tv_nsec);
 }

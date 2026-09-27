@@ -2,6 +2,7 @@
 
 #include <string>
 #include <string_view>
+#include <cstdint>
 
 constexpr const char* ARG_SCHED = "--sched";
 constexpr const char* ARG_QUANTUM = "--quantum";
@@ -29,3 +30,4 @@ std::string toUpper(std::string_view sv);
 bool setReceiveTimeout(int socket, int seconds);
 bool parsePositiveInt(const std::string &valueString, int &result);
 bool getFileSize(const std::string &filePath, size_t &fileSize);
+uint64_t timespecToNanoseconds(const timespec& time);

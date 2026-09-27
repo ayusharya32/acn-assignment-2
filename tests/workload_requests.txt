@@ -1,0 +1,1000 @@
+PUT experiment_put_0777_medium.bin workload_medium.txt 30720
+PUT experiment_put_0508_small.bin workload_small.txt 1083
+PUT experiment_put_0896_large.bin workload_large.txt 153637
+PUT experiment_put_0923_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0751_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0524_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0810_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0616_small.bin workload_small.txt 1083
+PUT experiment_put_0683_medium.bin workload_medium.txt 30720
+PUT experiment_put_0502_small.bin workload_small.txt 1083
+PUT experiment_put_0761_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0733_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0791_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0623_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0615_small.bin workload_small.txt 1083
+PUT experiment_put_0555_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0771_medium.bin workload_medium.txt 30720
+PUT experiment_put_0631_small.bin workload_small.txt 1083
+PUT experiment_put_0941_large.bin workload_large.txt 153637
+PUT experiment_put_0798_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0925_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0597_small.bin workload_small.txt 1083
+PUT experiment_put_0721_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_medium.txt
+PUT experiment_put_0773_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0790_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0742_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0966_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0590_small.bin workload_small.txt 1083
+PUT experiment_put_0667_small.bin workload_small.txt 1083
+PUT experiment_put_0764_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0587_small.bin workload_small.txt 1083
+PUT experiment_put_0582_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0639_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0880_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0507_small.bin workload_small.txt 1083
+PUT experiment_put_0897_large.bin workload_large.txt 153637
+PUT experiment_put_0714_medium.bin workload_medium.txt 30720
+PUT experiment_put_0892_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0912_large.bin workload_large.txt 153637
+PUT experiment_put_0793_medium.bin workload_medium.txt 30720
+PUT experiment_put_0509_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0843_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0766_medium.bin workload_medium.txt 30720
+PUT experiment_put_0910_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0539_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0695_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0529_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0929_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0608_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0849_large.bin workload_large.txt 153637
+PUT experiment_put_0669_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0940_large.bin workload_large.txt 153637
+PUT experiment_put_0945_large.bin workload_large.txt 153637
+PUT experiment_put_0607_small.bin workload_small.txt 1083
+PUT experiment_put_0960_large.bin workload_large.txt 153637
+PUT experiment_put_0935_large.bin workload_large.txt 153637
+PUT experiment_put_0732_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0528_small.bin workload_small.txt 1083
+PUT experiment_put_0808_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0820_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0561_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0517_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0661_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0586_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0824_medium.bin workload_medium.txt 30720
+PUT experiment_put_0703_medium.bin workload_medium.txt 30720
+PUT experiment_put_0950_large.bin workload_large.txt 153637
+PUT experiment_put_0516_small.bin workload_small.txt 1083
+PUT experiment_put_0865_large.bin workload_large.txt 153637
+PUT experiment_put_0837_large.bin workload_large.txt 153637
+PUT experiment_put_0878_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0595_small.bin workload_small.txt 1083
+PUT experiment_put_0789_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0800_medium.bin workload_medium.txt 30720
+PUT experiment_put_0903_large.bin workload_large.txt 153637
+PUT experiment_put_0921_large.bin workload_large.txt 153637
+PUT experiment_put_0943_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0728_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_large.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0681_medium.bin workload_medium.txt 30720
+PUT experiment_put_0745_medium.bin workload_medium.txt 30720
+PUT experiment_put_0922_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0523_small.bin workload_small.txt 1083
+PUT experiment_put_0632_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0694_medium.bin workload_medium.txt 30720
+PUT experiment_put_0741_medium.bin workload_medium.txt 30720
+PUT experiment_put_0578_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0613_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0970_large.bin workload_large.txt 153637
+PUT experiment_put_0689_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0817_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0918_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0654_small.bin workload_small.txt 1083
+PUT experiment_put_0770_medium.bin workload_medium.txt 30720
+PUT experiment_put_0671_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0638_small.bin workload_small.txt 1083
+PUT experiment_put_0992_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0982_large.bin workload_large.txt 153637
+PUT experiment_put_0851_large.bin workload_large.txt 153637
+PUT experiment_put_0893_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0618_small.bin workload_small.txt 1083
+PUT experiment_put_0698_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0884_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0962_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0976_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0776_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0996_large.bin workload_large.txt 153637
+PUT experiment_put_0526_small.bin workload_small.txt 1083
+PUT experiment_put_0775_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0626_small.bin workload_small.txt 1083
+PUT experiment_put_0801_medium.bin workload_medium.txt 30720
+PUT experiment_put_0562_small.bin workload_small.txt 1083
+PUT experiment_put_0510_small.bin workload_small.txt 1083
+PUT experiment_put_0841_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0911_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0606_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0872_large.bin workload_large.txt 153637
+PUT experiment_put_0573_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0927_large.bin workload_large.txt 153637
+PUT experiment_put_0640_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0730_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0753_medium.bin workload_medium.txt 30720
+PUT experiment_put_0627_small.bin workload_small.txt 1083
+PUT experiment_put_0572_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0743_medium.bin workload_medium.txt 30720
+PUT experiment_put_0915_large.bin workload_large.txt 153637
+PUT experiment_put_0511_small.bin workload_small.txt 1083
+PUT experiment_put_0574_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0665_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0648_small.bin workload_small.txt 1083
+PUT experiment_put_0811_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0796_medium.bin workload_medium.txt 30720
+PUT experiment_put_0682_medium.bin workload_medium.txt 30720
+PUT experiment_put_0805_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0839_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0628_small.bin workload_small.txt 1083
+PUT experiment_put_0958_large.bin workload_large.txt 153637
+PUT experiment_put_0583_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0533_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0684_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0847_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0902_large.bin workload_large.txt 153637
+PUT experiment_put_0762_medium.bin workload_medium.txt 30720
+PUT experiment_put_0548_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0558_small.bin workload_small.txt 1083
+PUT experiment_put_0629_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0844_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0535_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0580_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0772_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0723_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0538_small.bin workload_small.txt 1083
+PUT experiment_put_0576_small.bin workload_small.txt 1083
+PUT experiment_put_0549_small.bin workload_small.txt 1083
+PUT experiment_put_0711_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0886_large.bin workload_large.txt 153637
+PUT experiment_put_0633_small.bin workload_small.txt 1083
+PUT experiment_put_0859_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0933_large.bin workload_large.txt 153637
+PUT experiment_put_0814_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0625_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0709_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0874_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0818_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0916_large.bin workload_large.txt 153637
+PUT experiment_put_0994_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0596_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0645_small.bin workload_small.txt 1083
+PUT experiment_put_0636_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0679_medium.bin workload_medium.txt 30720
+PUT experiment_put_0834_medium.bin workload_medium.txt 30720
+PUT experiment_put_0936_large.bin workload_large.txt 153637
+PUT experiment_put_0680_medium.bin workload_medium.txt 30720
+PUT experiment_put_0720_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0836_large.bin workload_large.txt 153637
+PUT experiment_put_0863_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0658_small.bin workload_small.txt 1083
+PUT experiment_put_0944_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0803_medium.bin workload_medium.txt 30720
+PUT experiment_put_0901_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0946_large.bin workload_large.txt 153637
+PUT experiment_put_0704_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0879_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0919_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0861_large.bin workload_large.txt 153637
+PUT experiment_put_0899_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0840_large.bin workload_large.txt 153637
+PUT experiment_put_0977_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0951_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0881_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0505_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0531_small.bin workload_small.txt 1083
+PUT experiment_put_0985_large.bin workload_large.txt 153637
+PUT experiment_put_0852_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0988_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0601_small.bin workload_small.txt 1083
+PUT experiment_put_0917_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0857_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0588_small.bin workload_small.txt 1083
+PUT experiment_put_0758_medium.bin workload_medium.txt 30720
+PUT experiment_put_0986_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0802_medium.bin workload_medium.txt 30720
+PUT experiment_put_0649_small.bin workload_small.txt 1083
+PUT experiment_put_0807_medium.bin workload_medium.txt 30720
+PUT experiment_put_0537_small.bin workload_small.txt 1083
+PUT experiment_put_0504_small.bin workload_small.txt 1083
+PUT experiment_put_0738_medium.bin workload_medium.txt 30720
+PUT experiment_put_0560_small.bin workload_small.txt 1083
+PUT experiment_put_0545_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0889_large.bin workload_large.txt 153637
+PUT experiment_put_0612_small.bin workload_small.txt 1083
+PUT experiment_put_0712_medium.bin workload_medium.txt 30720
+PUT experiment_put_0532_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0853_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0514_small.bin workload_small.txt 1083
+PUT experiment_put_0749_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0525_small.bin workload_small.txt 1083
+PUT experiment_put_0894_large.bin workload_large.txt 153637
+PUT experiment_put_0953_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0674_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0904_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0569_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0691_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0783_medium.bin workload_medium.txt 30720
+PUT experiment_put_0938_large.bin workload_large.txt 153637
+PUT experiment_put_0534_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0543_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0708_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0980_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0540_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0727_medium.bin workload_medium.txt 30720
+PUT experiment_put_0794_medium.bin workload_medium.txt 30720
+PUT experiment_put_0819_medium.bin workload_medium.txt 30720
+PUT experiment_put_0779_medium.bin workload_medium.txt 30720
+PUT experiment_put_0757_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0930_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0646_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0997_large.bin workload_large.txt 153637
+PUT experiment_put_0869_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0696_medium.bin workload_medium.txt 30720
+PUT experiment_put_0503_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0565_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0928_large.bin workload_large.txt 153637
+PUT experiment_put_0660_small.bin workload_small.txt 1083
+PUT experiment_put_0637_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0685_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0816_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0833_medium.bin workload_medium.txt 30720
+PUT experiment_put_0813_medium.bin workload_medium.txt 30720
+PUT experiment_put_0963_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0998_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0905_large.bin workload_large.txt 153637
+PUT experiment_put_0862_large.bin workload_large.txt 153637
+PUT experiment_put_0650_small.bin workload_small.txt 1083
+PUT experiment_put_0746_medium.bin workload_medium.txt 30720
+PUT experiment_put_0701_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0920_large.bin workload_large.txt 153637
+PUT experiment_put_0652_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0620_small.bin workload_small.txt 1083
+PUT experiment_put_0906_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0589_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0677_medium.bin workload_medium.txt 30720
+PUT experiment_put_0961_large.bin workload_large.txt 153637
+PUT experiment_put_0602_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0786_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0804_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_medium.txt
+PUT experiment_put_0653_small.bin workload_small.txt 1083
+PUT experiment_put_0949_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0822_medium.bin workload_medium.txt 30720
+PUT experiment_put_0780_medium.bin workload_medium.txt 30720
+PUT experiment_put_0978_large.bin workload_large.txt 153637
+PUT experiment_put_0600_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0954_large.bin workload_large.txt 153637
+PUT experiment_put_0821_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0942_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_small.txt
+GET workload_medium.txt
+PUT experiment_put_0973_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0823_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0557_small.bin workload_small.txt 1083
+PUT experiment_put_0744_medium.bin workload_medium.txt 30720
+PUT experiment_put_0635_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0890_large.bin workload_large.txt 153637
+PUT experiment_put_0630_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0713_medium.bin workload_medium.txt 30720
+PUT experiment_put_0621_small.bin workload_small.txt 1083
+PUT experiment_put_0519_small.bin workload_small.txt 1083
+PUT experiment_put_0663_small.bin workload_small.txt 1083
+PUT experiment_put_0551_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0577_small.bin workload_small.txt 1083
+PUT experiment_put_0858_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0952_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0860_large.bin workload_large.txt 153637
+PUT experiment_put_0885_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0642_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0871_large.bin workload_large.txt 153637
+PUT experiment_put_0536_small.bin workload_small.txt 1083
+PUT experiment_put_0579_small.bin workload_small.txt 1083
+PUT experiment_put_0846_large.bin workload_large.txt 153637
+PUT experiment_put_0969_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0609_small.bin workload_small.txt 1083
+PUT experiment_put_0593_small.bin workload_small.txt 1083
+PUT experiment_put_0854_large.bin workload_large.txt 153637
+PUT experiment_put_0584_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0724_medium.bin workload_medium.txt 30720
+PUT experiment_put_0610_small.bin workload_small.txt 1083
+PUT experiment_put_0767_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0521_small.bin workload_small.txt 1083
+PUT experiment_put_0877_large.bin workload_large.txt 153637
+PUT experiment_put_0806_medium.bin workload_medium.txt 30720
+PUT experiment_put_0784_medium.bin workload_medium.txt 30720
+PUT experiment_put_0515_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0848_large.bin workload_large.txt 153637
+PUT experiment_put_0673_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_medium.txt
+PUT experiment_put_0692_medium.bin workload_medium.txt 30720
+PUT experiment_put_0556_small.bin workload_small.txt 1083
+PUT experiment_put_0594_small.bin workload_small.txt 1083
+PUT experiment_put_0838_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0717_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0570_small.bin workload_small.txt 1083
+PUT experiment_put_0898_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0989_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0887_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0726_medium.bin workload_medium.txt 30720
+PUT experiment_put_0870_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0716_medium.bin workload_medium.txt 30720
+PUT experiment_put_0752_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0981_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0554_small.bin workload_small.txt 1083
+PUT experiment_put_0668_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0990_large.bin workload_large.txt 153637
+PUT experiment_put_0564_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_small.txt
+GET workload_medium.txt
+PUT experiment_put_0913_large.bin workload_large.txt 153637
+PUT experiment_put_0718_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0830_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0967_large.bin workload_large.txt 153637
+PUT experiment_put_0815_medium.bin workload_medium.txt 30720
+PUT experiment_put_0706_medium.bin workload_medium.txt 30720
+PUT experiment_put_0924_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0662_small.bin workload_small.txt 1083
+PUT experiment_put_0670_medium.bin workload_medium.txt 30720
+PUT experiment_put_0690_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0756_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+GET workload_large.txt
+PUT experiment_put_0675_medium.bin workload_medium.txt 30720
+PUT experiment_put_0947_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0710_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0591_small.bin workload_small.txt 1083
+PUT experiment_put_0585_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0754_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0768_medium.bin workload_medium.txt 30720
+PUT experiment_put_0686_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0527_small.bin workload_small.txt 1083
+PUT experiment_put_0729_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0873_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0875_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0647_small.bin workload_small.txt 1083
+PUT experiment_put_0725_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0968_large.bin workload_large.txt 153637
+PUT experiment_put_0735_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0568_small.bin workload_small.txt 1083
+PUT experiment_put_0603_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0828_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0530_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0832_medium.bin workload_medium.txt 30720
+PUT experiment_put_0972_large.bin workload_large.txt 153637
+PUT experiment_put_0688_medium.bin workload_medium.txt 30720
+PUT experiment_put_0845_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0731_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0707_medium.bin workload_medium.txt 30720
+PUT experiment_put_0939_large.bin workload_large.txt 153637
+PUT experiment_put_0785_medium.bin workload_medium.txt 30720
+PUT experiment_put_0867_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0622_small.bin workload_small.txt 1083
+PUT experiment_put_0541_small.bin workload_small.txt 1083
+PUT experiment_put_0856_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0563_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0676_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0546_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0750_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0934_large.bin workload_large.txt 153637
+PUT experiment_put_0866_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0809_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0614_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0544_small.bin workload_small.txt 1083
+PUT experiment_put_0553_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0799_medium.bin workload_medium.txt 30720
+GET workload_large.txt
+PUT experiment_put_0835_large.bin workload_large.txt 153637
+PUT experiment_put_0974_large.bin workload_large.txt 153637
+PUT experiment_put_0895_large.bin workload_large.txt 153637
+PUT experiment_put_0797_medium.bin workload_medium.txt 30720
+PUT experiment_put_1000_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0641_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0520_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0781_medium.bin workload_medium.txt 30720
+PUT experiment_put_0513_small.bin workload_small.txt 1083
+PUT experiment_put_0931_large.bin workload_large.txt 153637
+PUT experiment_put_0737_medium.bin workload_medium.txt 30720
+PUT experiment_put_0740_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0909_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0932_large.bin workload_large.txt 153637
+PUT experiment_put_0999_large.bin workload_large.txt 153637
+PUT experiment_put_0956_large.bin workload_large.txt 153637
+PUT experiment_put_0657_small.bin workload_small.txt 1083
+PUT experiment_put_0788_medium.bin workload_medium.txt 30720
+PUT experiment_put_0900_large.bin workload_large.txt 153637
+PUT experiment_put_0769_medium.bin workload_medium.txt 30720
+PUT experiment_put_0937_large.bin workload_large.txt 153637
+PUT experiment_put_0699_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0739_medium.bin workload_medium.txt 30720
+PUT experiment_put_0831_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0567_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0542_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0964_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0611_small.bin workload_small.txt 1083
+PUT experiment_put_0957_large.bin workload_large.txt 153637
+PUT experiment_put_0697_medium.bin workload_medium.txt 30720
+PUT experiment_put_0812_medium.bin workload_medium.txt 30720
+PUT experiment_put_0959_large.bin workload_large.txt 153637
+PUT experiment_put_0643_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0774_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0506_small.bin workload_small.txt 1083
+PUT experiment_put_0522_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0882_large.bin workload_large.txt 153637
+PUT experiment_put_0926_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0598_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0599_small.bin workload_small.txt 1083
+PUT experiment_put_0765_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0552_small.bin workload_small.txt 1083
+PUT experiment_put_0975_large.bin workload_large.txt 153637
+PUT experiment_put_0763_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0993_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0659_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0512_small.bin workload_small.txt 1083
+PUT experiment_put_0672_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0736_medium.bin workload_medium.txt 30720
+PUT experiment_put_0581_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0825_medium.bin workload_medium.txt 30720
+PUT experiment_put_0983_large.bin workload_large.txt 153637
+PUT experiment_put_0842_large.bin workload_large.txt 153637
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0795_medium.bin workload_medium.txt 30720
+PUT experiment_put_0787_medium.bin workload_medium.txt 30720
+PUT experiment_put_0864_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0702_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0571_small.bin workload_small.txt 1083
+PUT experiment_put_0705_medium.bin workload_medium.txt 30720
+PUT experiment_put_0656_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_large.txt
+GET workload_medium.txt
+PUT experiment_put_0995_large.bin workload_large.txt 153637
+PUT experiment_put_0747_medium.bin workload_medium.txt 30720
+PUT experiment_put_0547_small.bin workload_small.txt 1083
+GET workload_medium.txt
+PUT experiment_put_0908_large.bin workload_large.txt 153637
+PUT experiment_put_0624_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0664_small.bin workload_small.txt 1083
+PUT experiment_put_0700_medium.bin workload_medium.txt 30720
+PUT experiment_put_0971_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0687_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_large.txt
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0855_large.bin workload_large.txt 153637
+PUT experiment_put_0651_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0955_large.bin workload_large.txt 153637
+PUT experiment_put_0948_large.bin workload_large.txt 153637
+GET workload_small.txt
+PUT experiment_put_0888_large.bin workload_large.txt 153637
+PUT experiment_put_0979_large.bin workload_large.txt 153637
+PUT experiment_put_0876_large.bin workload_large.txt 153637
+GET workload_small.txt
+GET workload_medium.txt
+PUT experiment_put_0792_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0678_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0722_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0592_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0883_large.bin workload_large.txt 153637
+PUT experiment_put_0907_large.bin workload_large.txt 153637
+PUT experiment_put_0634_small.bin workload_small.txt 1083
+PUT experiment_put_0644_small.bin workload_small.txt 1083
+PUT experiment_put_0850_large.bin workload_large.txt 153637
+GET workload_medium.txt
+PUT experiment_put_0566_small.bin workload_small.txt 1083
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0550_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0748_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0827_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0619_small.bin workload_small.txt 1083
+GET workload_large.txt
+PUT experiment_put_0868_large.bin workload_large.txt 153637
+GET workload_large.txt
+GET workload_small.txt
+GET workload_large.txt
+GET workload_small.txt
+PUT experiment_put_0991_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0782_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+GET workload_small.txt
+PUT experiment_put_0965_large.bin workload_large.txt 153637
+GET workload_large.txt
+PUT experiment_put_0984_large.bin workload_large.txt 153637
+PUT experiment_put_0715_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0826_medium.bin workload_medium.txt 30720
+PUT experiment_put_0778_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0891_large.bin workload_large.txt 153637
+PUT experiment_put_0829_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0604_small.bin workload_small.txt 1083
+GET workload_large.txt
+GET workload_medium.txt
+GET workload_large.txt
+PUT experiment_put_0987_large.bin workload_large.txt 153637
+PUT experiment_put_0719_medium.bin workload_medium.txt 30720
+PUT experiment_put_0666_small.bin workload_small.txt 1083
+PUT experiment_put_0734_medium.bin workload_medium.txt 30720
+GET workload_medium.txt
+PUT experiment_put_0575_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0617_small.bin workload_small.txt 1083
+PUT experiment_put_0518_small.bin workload_small.txt 1083
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_small.txt
+GET workload_small.txt
+GET workload_small.txt
+GET workload_large.txt
+PUT experiment_put_0605_small.bin workload_small.txt 1083
+GET workload_small.txt
+PUT experiment_put_0559_small.bin workload_small.txt 1083
+PUT experiment_put_0914_large.bin workload_large.txt 153637
+PUT experiment_put_0759_medium.bin workload_medium.txt 30720
+PUT experiment_put_0693_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+PUT experiment_put_0755_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_medium.txt
+GET workload_medium.txt
+GET workload_medium.txt
+PUT experiment_put_0760_medium.bin workload_medium.txt 30720
+GET workload_small.txt
+GET workload_small.txt
+PUT experiment_put_0655_small.bin workload_small.txt 1083

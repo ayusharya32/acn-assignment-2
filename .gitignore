@@ -21,3 +21,5 @@ bin/
 
 files/
 client_files/
+
+*.csv

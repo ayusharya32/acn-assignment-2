@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <cstdint>
 
 struct Request {
     std::string type;
@@ -22,6 +23,10 @@ struct AdmittedRequest {
     timespec arrivalTime{};
     timespec startTime{};
     timespec finishTime{};
+
+    uint64_t requestId = 0;
+    uint64_t rounds = 0;
+    uint64_t forfeitedBytes = 0;
 };
 
 struct ParseResult {

@@ -8,6 +8,9 @@
 #include <vector>
 #include <fstream>
 #include <algorithm>
+#include <atomic>
+#include <csignal>
+#include <cerrno>
 
 #include "config.hpp"
 #include "util.hpp"
@@ -27,7 +30,14 @@ queue<int> connectionQueue;
 pthread_mutex_t connectionQueueMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t connectionQueueSignal = PTHREAD_COND_INITIALIZER;
 
+vector<AdmittedRequest> completedRequests;
+pthread_mutex_t completedRequestsMutex = PTHREAD_MUTEX_INITIALIZER;
+
 constexpr int HEADER_TIMEOUT_SECONDS = 5;
+std::atomic<uint64_t> nextRequestId{1};
+
+// Flag to start shutdown protocol
+std::atomic<bool> shutdownRequested{false};
 
 void handleRequests(int serverSocket, const Config &config, ServerOptions &options);
 void* parserThreadFunc(void* arg);
@@ -39,7 +49,20 @@ bool getAdmittedRequestTotalBytesToTransfer(const Request& request,
 void enqueueConnection(int clientSocket);
 void enqueueAdmittedRequest(const AdmittedRequest &admittedRequest);
 
+void writeMetricsCsv(const ServerOptions& options);
+void handleSignal(int signal);
+void printShutdownSummary();
+
 int main(int argc, char* argv[]) {
+    struct sigaction signalAction{};
+    signalAction.sa_handler = handleSignal;
+    sigemptyset(&signalAction.sa_mask);
+    signalAction.sa_flags = 0;
+
+    sigaction(SIGINT, &signalAction, nullptr);
+    sigaction(SIGTERM, &signalAction, nullptr);
+
+
     ServerOptions options{};
     if(!parseServerArguments(argc, argv, options)) return 1;
 
@@ -110,8 +133,11 @@ int main(int argc, char* argv[]) {
          << endl;
 
     handleRequests(serverSocket, config, options);
-    close(serverSocket);
 
+    printShutdownSummary();
+    writeMetricsCsv(options);
+    
+    close(serverSocket);
     return 0;
 }
 
@@ -139,6 +165,10 @@ void handleRequests(int serverSocket, const Config &config, ServerOptions &optio
      while (true) {
         int clientSocket = accept(serverSocket, nullptr, nullptr);
         if (clientSocket < 0) {
+            if(shutdownRequested.load()) {
+                break;
+            }
+
             continue;
         }
 
@@ -151,10 +181,20 @@ void handleRequests(int serverSocket, const Config &config, ServerOptions &optio
         }
 
         enqueueConnection(clientSocket);
+
+        if (shutdownRequested.load()) {
+            break;
+        }
      }
 
-     // Not reachable currently because the server runs forever.
+     // Wake up parser thread, wait for it to drain the connectionQueue and close the thread
+     pthread_cond_signal(&connectionQueueSignal);
      pthread_join(parserThread, nullptr);
+     pthread_cond_broadcast(&schedulerQueueSignal);
+
+     for (pthread_t workerThread : workerThreads) {
+        pthread_join(workerThread, nullptr);
+    }
 }
 
 void* parserThreadFunc(void* arg) {
@@ -166,8 +206,13 @@ void* parserThreadFunc(void* arg) {
          */
         pthread_mutex_lock(&connectionQueueMutex);
 
-        while(connectionQueue.empty()) {
+        while(connectionQueue.empty() && !shutdownRequested.load()) {
             pthread_cond_wait(&connectionQueueSignal, &connectionQueueMutex);
+        }
+
+        if(connectionQueue.empty() && shutdownRequested.load()) {
+            pthread_mutex_unlock(&connectionQueueMutex);
+            break;
         }
 
         int clientSocket = connectionQueue.front();
@@ -232,6 +277,7 @@ void* parserThreadFunc(void* arg) {
         }
 
         AdmittedRequest admittedRequest;
+        admittedRequest.requestId = nextRequestId.fetch_add(1);
         admittedRequest.clientSocket = clientSocket;
         admittedRequest.request = requestParseResult.request;
         admittedRequest.totalBytesToTransfer = totalBytesToTransfer;
@@ -250,11 +296,20 @@ void* workerThreadFunc(void* arg) {
     while(true) {
         pthread_mutex_lock(&schedulerQueueMutex);
 
-        while(schedulerQueue.empty()) {
+        while(schedulerQueue.empty() && !shutdownRequested.load()) {
             pthread_cond_wait(&schedulerQueueSignal, &schedulerQueueMutex);
         }
 
+        if (schedulerQueue.empty() && shutdownRequested.load()) {
+            pthread_mutex_unlock(&schedulerQueueMutex);
+            break;
+        }
+
         AdmittedRequest request = selectNextRequestToProcess(options.scheduler);
+        if(request.rounds == 0){
+            clock_gettime(CLOCK_MONOTONIC, &request.startTime);
+        }
+        request.rounds++;
 
         pthread_mutex_unlock(&schedulerQueueMutex);
 
@@ -265,9 +320,16 @@ void* workerThreadFunc(void* arg) {
           << std::endl;
 
         bool success = serveRequest(request, options);
-
         if (success && request.bytesTransferred < request.totalBytesToTransfer) {
             enqueueAdmittedRequest(request);
+        }
+
+        if (success && request.bytesTransferred >= request.totalBytesToTransfer) {
+            clock_gettime(CLOCK_MONOTONIC, &request.finishTime);
+
+            pthread_mutex_lock(&completedRequestsMutex);
+            completedRequests.push_back(request);
+            pthread_mutex_unlock(&completedRequestsMutex);
         }
     }
 
@@ -318,6 +380,54 @@ void enqueueAdmittedRequest(const AdmittedRequest& admittedRequest){
 
     pthread_mutex_unlock(&schedulerQueueMutex);
     pthread_cond_signal(&schedulerQueueSignal);
+}
+
+void writeMetricsCsv(const ServerOptions& options) {
+    std::ofstream metricsFile(options.metricsOutput);
+
+    if (!metricsFile) {
+        cerr << "Failed to open metrics output file: "
+             << options.metricsOutput << endl;
+        return;
+    }
+
+    metricsFile
+        << "request_id,op,filename,bytes,rounds,forfeited_bytes,"
+        << "arrival_ns,start_ns,finish_ns\n";
+
+    pthread_mutex_lock(&completedRequestsMutex);
+
+    for (const AdmittedRequest& request : completedRequests) {
+        metricsFile
+            << request.requestId << ","
+            << request.request.type << ","
+            << request.request.fileName << ","
+            << request.totalBytesToTransfer << ","
+            << request.rounds << ","
+            << request.forfeitedBytes << ","
+            << timespecToNanoseconds(request.arrivalTime) << ","
+            << timespecToNanoseconds(request.startTime) << ","
+            << timespecToNanoseconds(request.finishTime)
+            << "\n";
+    }
+
+    pthread_mutex_unlock(&completedRequestsMutex);
+}
+
+void handleSignal(int signal) {
+    if (signal == SIGINT || signal == SIGTERM) {
+        shutdownRequested.store(true);
+    }
+}
+
+void printShutdownSummary() {
+    pthread_mutex_lock(&completedRequestsMutex);
+
+    cout << "\n===== Server Shutdown Summary =====" << endl;
+    cout << "Completed requests: "
+         << completedRequests.size() << endl;
+
+    pthread_mutex_unlock(&completedRequestsMutex);
 }
 
 

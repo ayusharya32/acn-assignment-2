@@ -158,6 +158,7 @@ bool serveGetRoundRobinRequest(AdmittedRequest& request, const ServerOptions& op
         }
 
         if(lineBytes > quantumRemaining) {
+            request.forfeitedBytes += quantumRemaining;
             break;
         }
 
