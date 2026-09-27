@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
     ServerOptions options{};
     if(!parseServerArguments(argc, argv, options)) return 1;
 
-    Config config = loadConfig("config.json");
+    Config config = loadConfig(options.configPath);
 
     /**
      * 1. Creating Server Socket
@@ -258,8 +258,15 @@ void* workerThreadFunc(void* arg) {
 
         pthread_mutex_unlock(&schedulerQueueMutex);
 
-        serveRequest(request, options);
-        if (request.bytesTransferred < request.totalBytesToTransfer) {
+        std::cout << "Serving "
+          << request.request.fileName
+          << " bytesTransferred="
+          << request.bytesTransferred
+          << std::endl;
+
+        bool success = serveRequest(request, options);
+
+        if (success && request.bytesTransferred < request.totalBytesToTransfer) {
             enqueueAdmittedRequest(request);
         }
     }

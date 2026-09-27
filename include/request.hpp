@@ -17,6 +17,8 @@ struct AdmittedRequest {
     size_t bytesTransferred = 0;
     size_t deficit = 0;
 
+    bool responseStarted = false;
+
     timespec arrivalTime{};
     timespec startTime{};
     timespec finishTime{};
