@@ -306,7 +306,10 @@ bool servePutRoundRobinRequest(AdmittedRequest &request, const ServerOptions& op
         quantumRemaining -= static_cast<int>(bytesActuallyReceived);
     }
 
+    file.close();
+
     if (request.bytesTransferred == request.totalBytesToTransfer) { 
+        request.deficit = 0;
         if(!sendOkResponse(request.clientSocket, 0)) {
             close(request.clientSocket);
             return false; 
@@ -318,5 +321,144 @@ bool servePutRoundRobinRequest(AdmittedRequest &request, const ServerOptions& op
 }
 
 bool serveGetDeficitRoundRobinRequest(AdmittedRequest& request, const ServerOptions& options) {
-    
+    if(!request.responseStarted) {
+        bool sendSizeSuccess = sendOkResponse(request.clientSocket, request.totalBytesToTransfer);
+        if(!sendSizeSuccess) {
+            close(request.clientSocket);
+            return false;
+        }
+
+        request.responseStarted = true;
+    }
+
+    std::string filePath = options.fileDirectory + "/" + request.request.fileName;
+    std::ifstream file(filePath, std::ios::binary);
+
+    if(!file) {
+        sendErrorResponse(request.clientSocket, "Unable to open file");
+        close(request.clientSocket);
+        return false;
+    }
+
+    file.seekg(static_cast<std::streamoff>(request.bytesTransferred));
+
+    request.deficit += options.quantum;
+    while(request.bytesTransferred < request.totalBytesToTransfer) {
+        std::string currentLine;
+
+        if(!std::getline(file, currentLine)) {
+            sendErrorResponse(request.clientSocket, "Failed to read file");
+            close(request.clientSocket);
+            return false;
+        }
+
+        if (!file.eof()) {
+            currentLine.push_back('\n');
+        }
+
+
+        size_t lineBytes = static_cast<int>(currentLine.size());
+        if(lineBytes > request.deficit) {
+            break;
+        }
+
+        if(!sendAllBytes(request.clientSocket, currentLine.data(), currentLine.size())) {
+            close(request.clientSocket);
+            return false;
+        }
+
+        request.bytesTransferred += currentLine.size();
+        request.deficit -= lineBytes;
+    }
+
+    file.close();
+
+    if (request.bytesTransferred == request.totalBytesToTransfer) {
+        request.deficit = 0;
+        close(request.clientSocket);
+    }
+
+    return true;
+}
+
+bool servePutDeficitRoundRobinRequest(AdmittedRequest& request, const ServerOptions& options) {
+    if(!request.responseStarted) {
+        bool sendOkSuccess = sendOkResponse(request.clientSocket, 0);
+        if(!sendOkSuccess) {
+            close(request.clientSocket);
+            return false;
+        }
+        request.responseStarted = true;
+    }
+
+    std::string filePath =options.fileDirectory + "/" + request.request.fileName;
+    std::ofstream file;
+
+    if (request.bytesTransferred == 0) {
+        file.open(filePath, std::ios::binary | std::ios::trunc);
+    } else {
+        file.open(filePath, std::ios::binary | std::ios::app);
+    }
+
+    if (!file) {
+        sendErrorResponse(request.clientSocket, "Unable to open file");
+        close(request.clientSocket);
+        return false;
+    }
+
+    request.deficit += options.quantum;
+    if (!request.extra.empty() && request.deficit > 0) {
+        size_t extraBytesToWrite = std::min(request.extra.size(), request.deficit);
+        file.write(request.extra.data(), extraBytesToWrite);
+
+        if (!file) {
+            sendErrorResponse(request.clientSocket,"Failed to write file");
+            file.close();
+            close(request.clientSocket);
+            return false;
+        }
+        request.bytesTransferred += extraBytesToWrite;
+        request.deficit -= extraBytesToWrite;
+        request.extra.erase(0, extraBytesToWrite);
+    }
+
+    char buffer[8192]; 
+    while (request.bytesTransferred < request.totalBytesToTransfer && request.deficit > 0) {
+        size_t remainingRequestBytes = request.totalBytesToTransfer - request.bytesTransferred; 
+        size_t bytesToReceive = std::min(
+            sizeof(buffer), 
+            std::min(remainingRequestBytes, request.deficit)
+        );
+
+        ssize_t bytesActuallyReceived = recv(request.clientSocket, buffer, bytesToReceive, 0); 
+        if(bytesActuallyReceived <= 0) { 
+            sendErrorResponse( request.clientSocket, "Unable to receive file" ); 
+            close(request.clientSocket); 
+            return false; 
+        } 
+        
+        file.write(buffer, bytesActuallyReceived); 
+        
+        if(!file) { 
+            sendErrorResponse(request.clientSocket, "Failed to write file"); 
+            close(request.clientSocket); 
+            return false; 
+        } 
+        
+        request.bytesTransferred += static_cast<size_t>(bytesActuallyReceived); 
+        request.deficit -= bytesActuallyReceived;
+    }
+
+    file.close();
+    if (request.bytesTransferred == request.totalBytesToTransfer) { 
+        request.deficit = 0;
+
+        if(!sendOkResponse(request.clientSocket, 0)) {
+            close(request.clientSocket);
+            return false; 
+        } 
+        close(request.clientSocket); 
+    }
+
+    return true;
 }
