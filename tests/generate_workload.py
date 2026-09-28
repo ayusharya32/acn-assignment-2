@@ -1,8 +1,7 @@
 import os
 import random
+import sys
 
-
-FILES_DIR = "./files"
 
 # Approximate assignment workload sizes.
 SMALL_SIZE = 1 * 1024
@@ -105,21 +104,22 @@ def report_file(path):
 
 
 def main():
-    os.makedirs(FILES_DIR, exist_ok=True)
+    target_dir = sys.argv[1] if len(sys.argv) > 1 else "./workload"
+    os.makedirs(target_dir, exist_ok=True)
 
     random.seed(42)
 
-    small_path = os.path.join(FILES_DIR, "workload_small.txt")
-    medium_path = os.path.join(FILES_DIR, "workload_medium.txt")
-    large_path = os.path.join(FILES_DIR, "workload_large.txt")
-    long_path = os.path.join(FILES_DIR, "workload_longline.txt")
+    small_path = os.path.join(target_dir, "workload_small.txt")
+    medium_path = os.path.join(target_dir, "workload_medium.txt")
+    large_path = os.path.join(target_dir, "workload_large.txt")
+    long_path = os.path.join(target_dir, "workload_longline.txt")
 
     generate_normal_file(small_path, SMALL_SIZE)
     generate_normal_file(medium_path, MEDIUM_SIZE)
     generate_normal_file(large_path, LARGE_SIZE)
     generate_long_line_file(long_path)
 
-    print("Generated workload files:")
+    print(f"Generated workload files in {target_dir}:")
     print()
 
     report_file(small_path)

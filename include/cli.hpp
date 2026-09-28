@@ -11,4 +11,12 @@ struct ServerOptions {
     std::string metricsOutput = "metrics.csv";
 };
 
+struct ClientOptions {
+    std::string command;
+    std::string path;
+    std::string configPath = "config.json";
+    int requests = -1;
+};
+
 bool parseServerArguments(int argc, char* argv[], ServerOptions &options);
+bool parseClientArguments(int argc, char* argv[], ClientOptions &options);

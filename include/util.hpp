@@ -11,6 +11,9 @@ constexpr const char* ARG_PACKETIZATION = "--p";
 constexpr const char* ARG_CONFIG = "--config";
 constexpr const char* ARG_METRICS_OUT = "--metrics-out";
 
+constexpr const char* CLIENT_ARG_CONFIG = "--config";
+constexpr const char* CLIENT_ARG_REQUESTS = "--requests";
+
 constexpr const char* SCHED_FCFS = "fcfs";
 constexpr const char* SCHED_SJF = "sjf";
 constexpr const char* SCHED_ROUND_ROBIN = "rr";

@@ -10,6 +10,15 @@ bool nextIndexValid(int argc, int currentIndex);
 bool loadArgValuesInServerOptions(int argc, char* argv[], ServerOptions &options, 
     bool &schedulerProvided, bool &fileProvided, bool &quantumProvided);
 
+bool loadArgValuesInClientOptions(
+    int argc,
+    char* argv[],
+    ClientOptions &options,
+    bool &commandProvided,
+    bool &pathProvided,
+    bool &requestsProvided
+);
+
 bool parseServerArguments(int argc, char* argv[], ServerOptions &options) {
     bool schedulerProvided = false;
     bool fileProvided = false;
@@ -126,6 +135,120 @@ bool loadArgValuesInServerOptions(int argc, char* argv[], ServerOptions &options
             }
 
             options.metricsOutput = argv[++i];
+
+        } else {
+            cerr << "Error: unknown argument " << argument << endl;
+            return false;
+        }
+    }
+
+    return true;
+}
+
+bool parseClientArguments(int argc, char* argv[], ClientOptions &options)
+{
+    bool commandProvided = false;
+    bool pathProvided = false;
+    bool requestsProvided = false;
+
+    bool loadSuccess = loadArgValuesInClientOptions(
+        argc,
+        argv,
+        options,
+        commandProvided,
+        pathProvided,
+        requestsProvided
+    );
+
+    if (!loadSuccess) {
+        return false;
+    }
+
+    if (!commandProvided) {
+        cerr << "error: missing command" << endl;
+        return false;
+    }
+
+    if (options.command != "put" &&
+        options.command != "get" &&
+        options.command != "load") {
+        cerr << "error: invalid command: " << options.command << endl;
+        return false;
+    }
+
+    if (!pathProvided) {
+        cerr << "error: missing path/name for " << options.command << endl;
+        return false;
+    }
+
+    if (options.command == "load" && !requestsProvided) {
+        cerr << "error: --requests is required for load" << endl;
+        return false;
+    }
+
+    if (options.command != "load" && requestsProvided) {
+        cerr << "error: --requests is only valid for load" << endl;
+        return false;
+    }
+
+    if (requestsProvided && options.requests <= 0) {
+        cerr << "error: --requests must be positive" << endl;
+        return false;
+    }
+
+    return true;
+}
+
+bool loadArgValuesInClientOptions(
+    int argc,
+    char* argv[],
+    ClientOptions &options,
+    bool &commandProvided,
+    bool &pathProvided,
+    bool &requestsProvided)
+{
+    if (argc < 2) {
+        cerr << "Error: missing command" << endl;
+        return false;
+    }
+
+    // First positional argument is the command.
+    options.command = argv[1];
+    commandProvided = true;
+
+    // Second positional argument is the path/name.
+    if (argc >= 3 && argv[2][0] != '-') {
+        options.path = argv[2];
+        pathProvided = true;
+    }
+
+    for (int i = 3; i < argc; i++) {
+        std::string argument = argv[i];
+
+        if (argument == CLIENT_ARG_CONFIG) {
+            if (!nextIndexValid(argc, i)) {
+                cerr << "Error: missing value for " << argument << endl;
+                return false;
+            }
+
+            options.configPath = argv[++i];
+
+        } else if (argument == CLIENT_ARG_REQUESTS) {
+            if (!nextIndexValid(argc, i)) {
+                cerr << "Error: missing value for " << argument << endl;
+                return false;
+            }
+
+            std::string requestsString = argv[++i];
+            int requests;
+
+            if (!parsePositiveInt(requestsString, requests)) {
+                cerr << "error: invalid --requests" << endl;
+                return false;
+            }
+
+            options.requests = requests;
+            requestsProvided = true;
 
         } else {
             cerr << "Error: unknown argument " << argument << endl;
