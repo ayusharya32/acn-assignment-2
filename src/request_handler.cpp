@@ -5,6 +5,7 @@
 #include <string>
 #include <sys/socket.h>
 #include <unistd.h>
+#include <iostream>
 
 #include "request_handler.hpp"
 #include "request.hpp"
@@ -80,26 +81,36 @@ bool serveGetFcfsOrSjfRequest(AdmittedRequest& request, const ServerOptions& opt
         return false;
     }
 
-    char buffer[8192];
-    while(file && request.bytesTransferred < request.totalBytesToTransfer) {
-        size_t remainingBytesToTranfer = request.totalBytesToTransfer - request.bytesTransferred;
-        size_t bytesToRead = std::min(sizeof(buffer), remainingBytesToTranfer);
+    std::string batchBuffer;
+    int linesInBatch = 0;
+    int packetLimit = std::max(1, options.packetization);
 
-        file.read(buffer, bytesToRead);
-        std::streamsize bytesRead = file.gcount();
+    std::string currentLine;
+    while(request.bytesTransferred < request.totalBytesToTransfer && std::getline(file, currentLine)) {
+        if (!file.eof()) {
+            currentLine.push_back('\n');
+        }
 
-        if(bytesRead <= 0) {
-            sendErrorResponse(request.clientSocket, "Failed to read file");
+        batchBuffer.append(currentLine);
+        request.bytesTransferred += currentLine.size();
+        linesInBatch++;
+
+        if (linesInBatch >= packetLimit) {
+            if (!sendAllBytes(request.clientSocket, batchBuffer.data(), batchBuffer.size())) {
+                close(request.clientSocket);
+                return false;
+            }
+            batchBuffer.clear();
+            linesInBatch = 0;
+        }
+    }
+
+    if (!batchBuffer.empty()) {
+        if (!sendAllBytes(request.clientSocket, batchBuffer.data(), batchBuffer.size())) {
             close(request.clientSocket);
             return false;
         }
-
-        if(!sendAllBytes(request.clientSocket, buffer, static_cast<size_t>(bytesRead))) {
-            close(request.clientSocket);
-            return false;
-        }
-
-        request.bytesTransferred += static_cast<size_t>(bytesRead);
+        batchBuffer.clear();
     }
 
     close(request.clientSocket);
@@ -130,6 +141,10 @@ bool serveGetRoundRobinRequest(AdmittedRequest& request, const ServerOptions& op
 
     int quantumRemaining = options.quantum;
     bool isFirstLineOfRound = true;
+    std::string batchBuffer;
+    int linesInBatch = 0;
+    int packetLimit = std::max(1, options.packetization);
+
     while(request.bytesTransferred < request.totalBytesToTransfer) {
         std::string currentLine;
 
@@ -143,16 +158,11 @@ bool serveGetRoundRobinRequest(AdmittedRequest& request, const ServerOptions& op
             currentLine.push_back('\n');
         }
 
-
         int lineBytes = static_cast<int>(currentLine.size());
 
         // Handling first line being more than quantum size itself: Overrun
-        if( lineBytes > quantumRemaining && isFirstLineOfRound) {
-            if (!sendAllBytes(request.clientSocket, currentLine.data(), lineBytes)) {
-                close(request.clientSocket);
-                return false;
-            }
-
+        if(lineBytes > quantumRemaining && isFirstLineOfRound) {
+            batchBuffer.append(currentLine);
             request.bytesTransferred += currentLine.size();
             break;
         }
@@ -162,18 +172,32 @@ bool serveGetRoundRobinRequest(AdmittedRequest& request, const ServerOptions& op
             break;
         }
 
-        if(!sendAllBytes(request.clientSocket, currentLine.data(), currentLine.size())) {
-            close(request.clientSocket);
-            return false;
-        }
-
+        batchBuffer.append(currentLine);
+        linesInBatch++;
         quantumRemaining -= lineBytes;
         request.bytesTransferred += currentLine.size();
         isFirstLineOfRound = false;
 
+        if (linesInBatch >= packetLimit) {
+            if (!sendAllBytes(request.clientSocket, batchBuffer.data(), batchBuffer.size())) {
+                close(request.clientSocket);
+                return false;
+            }
+            batchBuffer.clear();
+            linesInBatch = 0;
+        }
+
         if(quantumRemaining == 0) {
             break;
         }
+    }
+
+    if (!batchBuffer.empty()) {
+        if (!sendAllBytes(request.clientSocket, batchBuffer.data(), batchBuffer.size())) {
+            close(request.clientSocket);
+            return false;
+        }
+        batchBuffer.clear();
     }
 
     file.close();
@@ -288,7 +312,12 @@ bool servePutRoundRobinRequest(AdmittedRequest &request, const ServerOptions& op
             std::min(remainingRequestBytes, static_cast<size_t>(quantumRemaining))
         );
 
+        std::cout << "[PUT_RECV] fd=" << request.clientSocket
+          << " waiting for " << bytesToReceive
+          << " bytes" << std::endl;
+
         ssize_t bytesActuallyReceived = recv(request.clientSocket, buffer, bytesToReceive, 0); 
+          
         if(bytesActuallyReceived <= 0) { 
             sendErrorResponse( request.clientSocket, "Unable to receive file" ); 
             close(request.clientSocket); 
@@ -344,6 +373,10 @@ bool serveGetDeficitRoundRobinRequest(AdmittedRequest& request, const ServerOpti
     file.seekg(static_cast<std::streamoff>(request.bytesTransferred));
 
     request.deficit += options.quantum;
+    std::string batchBuffer;
+    int linesInBatch = 0;
+    int packetLimit = std::max(1, options.packetization);
+
     while(request.bytesTransferred < request.totalBytesToTransfer) {
         std::string currentLine;
 
@@ -357,19 +390,32 @@ bool serveGetDeficitRoundRobinRequest(AdmittedRequest& request, const ServerOpti
             currentLine.push_back('\n');
         }
 
-
-        size_t lineBytes = static_cast<int>(currentLine.size());
+        size_t lineBytes = currentLine.size();
         if(lineBytes > request.deficit) {
             break;
         }
 
-        if(!sendAllBytes(request.clientSocket, currentLine.data(), currentLine.size())) {
+        batchBuffer.append(currentLine);
+        linesInBatch++;
+        request.bytesTransferred += currentLine.size();
+        request.deficit -= lineBytes;
+
+        if (linesInBatch >= packetLimit) {
+            if (!sendAllBytes(request.clientSocket, batchBuffer.data(), batchBuffer.size())) {
+                close(request.clientSocket);
+                return false;
+            }
+            batchBuffer.clear();
+            linesInBatch = 0;
+        }
+    }
+
+    if (!batchBuffer.empty()) {
+        if (!sendAllBytes(request.clientSocket, batchBuffer.data(), batchBuffer.size())) {
             close(request.clientSocket);
             return false;
         }
-
-        request.bytesTransferred += currentLine.size();
-        request.deficit -= lineBytes;
+        batchBuffer.clear();
     }
 
     file.close();
