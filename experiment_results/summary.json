@@ -1,0 +1,266 @@
+{
+  "cell_1": {
+    "config": {
+      "id": "cell_1",
+      "name": "Cell 1: FCFS (4 server threads)",
+      "sched": "fcfs",
+      "quantum": null,
+      "server_threads": 4,
+      "client_threads": 8
+    },
+    "metrics": {
+      "total_requests": 1004,
+      "wait_p50_ns": 2930012,
+      "wait_p99_ns": 38872862,
+      "resp_p50_ns": 6411084,
+      "resp_p99_ns": 75205009,
+      "throughput_rps": 416.35847638071107,
+      "window_sec": 2.411383596,
+      "counts_by_class": {
+        "small": 238,
+        "medium": 511,
+        "large": 255
+      },
+      "forfeited_by_class": {
+        "small": 0,
+        "medium": 0,
+        "large": 0
+      },
+      "a14_firings": 0,
+      "slowdown_summary": {
+        "small": {
+          "median": 1895.7756232686982,
+          "p99": 35947.702677747
+        },
+        "medium": {
+          "median": 1324.5902018229167,
+          "p99": 11539.114982034058
+        },
+        "large": {
+          "median": 27.871274497679597,
+          "p99": 270.85650591979794
+        }
+      }
+    }
+  },
+  "cell_2": {
+    "config": {
+      "id": "cell_2",
+      "name": "Cell 2: SJF (4 server threads)",
+      "sched": "sjf",
+      "quantum": null,
+      "server_threads": 4,
+      "client_threads": 8
+    },
+    "metrics": {
+      "total_requests": 1004,
+      "wait_p50_ns": 1199167,
+      "wait_p99_ns": 81791468,
+      "resp_p50_ns": 4281209,
+      "resp_p99_ns": 83206968,
+      "throughput_rps": 382.06211693910836,
+      "window_sec": 2.627844938,
+      "counts_by_class": {
+        "small": 247,
+        "medium": 526,
+        "large": 231
+      },
+      "forfeited_by_class": {
+        "small": 0,
+        "medium": 0,
+        "large": 0
+      },
+      "a14_firings": 0,
+      "slowdown_summary": {
+        "small": {
+          "median": 545.2068328716529,
+          "p99": 32296.518005540165
+        },
+        "medium": {
+          "median": 1162.1108723958334,
+          "p99": 11195.413529136073
+        },
+        "large": {
+          "median": 183.34642696746226,
+          "p99": 567.6514186035915
+        }
+      }
+    }
+  },
+  "cell_3": {
+    "config": {
+      "id": "cell_3",
+      "name": "Cell 3: RR (4 server threads, Q=4096)",
+      "sched": "rr",
+      "quantum": 4096,
+      "server_threads": 4,
+      "client_threads": 8
+    },
+    "metrics": {
+      "total_requests": 1004,
+      "wait_p50_ns": 80917,
+      "wait_p99_ns": 32963546,
+      "resp_p50_ns": 5884751,
+      "resp_p99_ns": 82328968,
+      "throughput_rps": 296.1448093773513,
+      "window_sec": 3.390233319,
+      "counts_by_class": {
+        "small": 257,
+        "medium": 508,
+        "large": 239
+      },
+      "forfeited_by_class": {
+        "small": 0,
+        "medium": 23310,
+        "large": 149322
+      },
+      "a14_firings": 127,
+      "slowdown_summary": {
+        "small": {
+          "median": 153.66297322253,
+          "p99": 32449.141274238227
+        },
+        "medium": {
+          "median": 1333.8787434895833,
+          "p99": 6945.8556475550695
+        },
+        "large": {
+          "median": 229.74720282223683,
+          "p99": 644.8941010303507
+        }
+      }
+    }
+  },
+  "cell_4": {
+    "config": {
+      "id": "cell_4",
+      "name": "Cell 4: DRR (4 server threads, Q=4096)",
+      "sched": "drr",
+      "quantum": 4096,
+      "server_threads": 4,
+      "client_threads": 8
+    },
+    "metrics": {
+      "total_requests": 1004,
+      "wait_p50_ns": 94959,
+      "wait_p99_ns": 35772296,
+      "resp_p50_ns": 7639668,
+      "resp_p99_ns": 81973885,
+      "throughput_rps": 343.22873948124465,
+      "window_sec": 2.925162973,
+      "counts_by_class": {
+        "small": 239,
+        "medium": 521,
+        "large": 244
+      },
+      "forfeited_by_class": {
+        "small": 0,
+        "medium": 0,
+        "large": 0
+      },
+      "a14_firings": 0,
+      "slowdown_summary": {
+        "small": {
+          "median": 170.20590951061865,
+          "p99": 34908.09141274238
+        },
+        "medium": {
+          "median": 1334.9298828125,
+          "p99": 6903.694266520856
+        },
+        "large": {
+          "median": 261.8320326483855,
+          "p99": 804.3424760962529
+        }
+      }
+    }
+  },
+  "cell_5": {
+    "config": {
+      "id": "cell_5",
+      "name": "Cell 5: FCFS (1 server thread)",
+      "sched": "fcfs",
+      "quantum": null,
+      "server_threads": 1,
+      "client_threads": 8
+    },
+    "metrics": {
+      "total_requests": 1004,
+      "wait_p50_ns": 42128296,
+      "wait_p99_ns": 46953381,
+      "resp_p50_ns": 42827213,
+      "resp_p99_ns": 47417506,
+      "throughput_rps": 240.30443769022708,
+      "window_sec": 4.178033538,
+      "counts_by_class": {
+        "small": 249,
+        "medium": 498,
+        "large": 257
+      },
+      "forfeited_by_class": {
+        "small": 0,
+        "medium": 0,
+        "large": 0
+      },
+      "a14_firings": 0,
+      "slowdown_summary": {
+        "small": {
+          "median": 39042.903047091415,
+          "p99": 43441.52539242844
+        },
+        "medium": {
+          "median": 1452.5283854166667,
+          "p99": 7354.7436338072175
+        },
+        "large": {
+          "median": 279.48457728281596,
+          "p99": 315.8712094091918
+        }
+      }
+    }
+  },
+  "cell_6": {
+    "config": {
+      "id": "cell_6",
+      "name": "Cell 6: RR (1 server thread, Q=4096)",
+      "sched": "rr",
+      "quantum": 4096,
+      "server_threads": 1,
+      "client_threads": 8
+    },
+    "metrics": {
+      "total_requests": 1004,
+      "wait_p50_ns": 257541,
+      "wait_p99_ns": 41954463,
+      "resp_p50_ns": 41260505,
+      "resp_p99_ns": 297760952,
+      "throughput_rps": 133.90405314250478,
+      "window_sec": 7.497905974,
+      "counts_by_class": {
+        "small": 245,
+        "medium": 494,
+        "large": 265
+      },
+      "forfeited_by_class": {
+        "small": 0,
+        "medium": 22570,
+        "large": 144466
+      },
+      "a14_firings": 135,
+      "slowdown_summary": {
+        "small": {
+          "median": 316.63619575253927,
+          "p99": 38790.209602954754
+        },
+        "medium": {
+          "median": 1428.5103841145833,
+          "p99": 6710.469145446024
+        },
+        "large": {
+          "median": 897.4244420289383,
+          "p99": 2186.499931657088
+        }
+      }
+    }
+  }
+}
